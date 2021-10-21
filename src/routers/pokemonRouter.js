@@ -53,6 +53,7 @@ router.get("/query", isUser, (request, response) => {
     });
 });
 
+// put request for catching a pokemon
 router.put("/catch/:id", isUser, isPokemonExist, (request, response) => {
   pokedex
     .getPokemonByName(request.params.id)
@@ -73,6 +74,18 @@ router.put("/catch/:id", isUser, isPokemonExist, (request, response) => {
       return;
     });
 });
+
+// delete request for releasing a pokemon
+router.delete("/release/:id", isUser, isPokemonExist, (request, response) => {
+  const file = `./users/${request.headers.username}/${request.params.id}.json`;
+  fs.unlinkSync(file);
+  response.send("Pokemon was released");
+  response.end();
+});
+
+/*********************
+ * Helping functions *
+ *********************/
 
 // getting a JSON of a pokemon and taking out only the relevant data and putting it inside the sending format
 function pokemonFormatter(pokemonJson) {
@@ -104,6 +117,7 @@ function pokemonFormatter(pokemonJson) {
   return pokemonFormat;
 }
 
+// creating the json file with the pokemon format
 function createPokemonFile(pokemon, userDir, id) {
   fs.writeFileSync(`${userDir}/${id}.json`, JSON.stringify(pokemon));
 }

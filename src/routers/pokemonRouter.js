@@ -83,6 +83,14 @@ router.delete("/release/:id", isUser, isPokemonExist, (request, response) => {
   response.end();
 });
 
+// get request to see all the caught pokemons
+router.get("/", isUser, (request, response) => {
+  const user = request.headers.username;
+  const pokemons = readFiles(`./users/${user}`);
+  response.send(pokemons);
+  response.end();
+});
+
 /*********************
  * Helping functions *
  *********************/
@@ -120,6 +128,17 @@ function pokemonFormatter(pokemonJson) {
 // creating the json file with the pokemon format
 function createPokemonFile(pokemon, userDir, id) {
   fs.writeFileSync(`${userDir}/${id}.json`, JSON.stringify(pokemon));
+}
+
+// reading all the files in the user dir and returning an array with the name sof the pokemons
+function readFiles(dirname) {
+  const data = [];
+  let filesArr = fs.readdirSync(dirname);
+  for (const file of filesArr) {
+    let name = JSON.parse(fs.readFileSync(`${dirname}/${file}`)).name;
+    data.push(name);
+  }
+  return data;
 }
 
 module.exports = router;

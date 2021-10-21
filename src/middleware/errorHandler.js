@@ -16,4 +16,13 @@ function isPokemonExist(req, res, next) {
   next();
 }
 
-module.exports = isPokemonExist;
+function serverError(error, req, res, next) {
+  res.status(500);
+  res.send("Oops, something went wrong.");
+  res.end();
+}
+
+module.exports = {
+  isPokemonExist,
+  serverError,
+};

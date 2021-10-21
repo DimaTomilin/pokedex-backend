@@ -1,5 +1,6 @@
 const express = require("express");
 const POKEDEX = require("pokedex-promise-v2");
+const { serverError } = require("./src/middleware/errorHandler");
 const pokedex = new POKEDEX();
 const server = express();
 const port = 8080;
@@ -13,6 +14,8 @@ server.listen(port, () => {
 
 server.use("/user", userRouter);
 server.use("/pokemon", pokemonRouter);
+
+server.use(serverError);
 
 server.get("/", (req, res) => {
   res.send("hello world!");

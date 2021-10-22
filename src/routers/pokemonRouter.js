@@ -96,4 +96,26 @@ router.get("/", (request, response) => {
   }
 });
 
+// request to get type list
+router.get("/type/:typename", (request, response) => {
+  const typename = request.params.typename;
+  pokedex
+    .getTypeByName(typename)
+    .then((result) => {
+      const pokemonsList = result.pokemon;
+      const pokemonNamesList = [];
+
+      for (const pokemon of pokemonsList) {
+        pokemonNamesList.push(pokemon["pokemon"]["name"]);
+      }
+
+      response.send(pokemonNamesList);
+      response.end();
+    })
+    .catch((error) => {
+      response.status(404).json({ error: err.message + " Type not found" });
+      response.end();
+    });
+});
+
 module.exports = router;

@@ -16,7 +16,7 @@ router.put("/create/:username", (request, response) => {
 
 // the most useless function ever, has no purpose but it was a requirement
 router.post("/info", isUser, (request, response) => {
-  response.json({ username: request.headers.username });
+  response.send("Hey " + request.headers.username);
   response.end();
   return;
 });

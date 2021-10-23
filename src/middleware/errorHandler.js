@@ -8,9 +8,9 @@ function isPokemonExist(req, res, next) {
   const pokemons = fs.readdirSync(`./users/${dir}`);
 
   if (method == "PUT" && pokemons.includes(pokemon)) {
-    return res.status(403).json({ error: "Pokemon already caught!" });
+    return res.status(403).send("Pokemon already caught!" );
   } else if (method == "DELETE" && !pokemons.includes(pokemon)) {
-    return res.status(403).json({ error: "Pokemon is not caught!" });
+    return res.status(403).send("Pokemon is not caught!");
   }
 
   next();

@@ -27,7 +27,3 @@ server.use("/user", userRouter);
 server.use("/pokemon", pokemonRouter);
 
 server.use(serverError);
-
-server.get("/", (req, res) => {
-  res.send("hello world!");
-});

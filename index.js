@@ -1,5 +1,6 @@
 const express = require("express");
 const POKEDEX = require("pokedex-promise-v2");
+const path = require("path")
 const { serverError } = require("./src/middleware/errorHandler");
 const pokedex = new POKEDEX();
 const server = express();

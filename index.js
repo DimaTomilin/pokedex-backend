@@ -7,9 +7,16 @@ const port = 8080;
 const pokemonRouter = require("./src/routers/pokemonRouter");
 const userRouter = require("./src/routers/userRouter");
 const cors = require('cors');
+
+
+
 server.use(cors({
   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }));
+app.use('/', express.static(path.resolve('./dist'))); // serve main path as static dir
+app.get('/', function(req, res) { // serve main path as static file
+  res.sendFile(path.resolve('./dist/index.html'))
+});
 
 // starting the server
 server.listen(port, () => {

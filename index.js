@@ -18,12 +18,13 @@ server.get('/', function(req, res) { // serve main path as static file
   res.sendFile(path.resolve('./dist/index.html'))
 });
 
-// starting the server
-server.listen(process.env.PORT || port, () => {
-  console.log(`listening on port: ${port}`);
-});
-
 server.use("/user", userRouter);
 server.use("/pokemon", pokemonRouter);
 
 server.use(serverError);
+
+
+// starting the server
+server.listen(process.env.PORT || port, () => {
+  console.log(`listening on port: ${port}`);
+});

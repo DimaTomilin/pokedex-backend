@@ -19,7 +19,7 @@ server.get('/', function(req, res) { // serve main path as static file
 });
 
 // starting the server
-server.listen(port, () => {
+server.listen(process.env.PORT || port, () => {
   console.log(`listening on port: ${port}`);
 });
 
